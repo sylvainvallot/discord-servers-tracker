@@ -9,9 +9,9 @@ export default function CallToAction() {
             Contactez-moi sur Discord @syvt ou envoyez moi un email <a href="mailto:contact@sylvainvallot.com" className="underline font-mono">contact@sylvainvallot.com</a>
           </p>
         </div>
-        <div className="pt-5 justify-center gap-x-6">
+        <div className="pt-5 lg:pt-0 shrink-0">
             <a
-                className="flex mx-auto my-6 max-w-fit items-center justify-center space-x-2 rounded-xl border border-gray-300 bg-white px-5 py-2 text-black shadow-md transition-colors hover:border-gray-800"
+                className="flex flex-row my-6 items-center justify-center space-x-2 rounded-xl border border-gray-300 bg-white px-5 py-2 text-black shadow-md transition-colors hover:border-gray-800"
                 href="https://discord.gg/la-nouvelle-academie-679078702084259861"
             >
                 <svg
