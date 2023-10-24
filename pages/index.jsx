@@ -1,6 +1,8 @@
 import GrowthChart from '../components/GrowthChart';
 import Image from 'next/image';
 import clientPromise from "../lib/mongodb";
+import Footer from '../components/Footer';
+import CallToAction from '../components/CallToAction';
 
 export default function Servers({ servers, dataset, members }) {
     return (
@@ -14,6 +16,8 @@ export default function Servers({ servers, dataset, members }) {
             </div>
 
             <GrowthChart data={dataset}/>
+            <CallToAction/>
+            <Footer/>
         </div>
     );
 }
