@@ -3,6 +3,7 @@ import Image from 'next/image';
 import clientPromise from "../lib/mongodb";
 import Footer from '../components/Footer';
 import CallToAction from '../components/CallToAction';
+import Metrics from '../components/Metrics';
 
 export default function Servers({ servers, dataset, members }) {
     return (
@@ -16,6 +17,7 @@ export default function Servers({ servers, dataset, members }) {
             </div>
 
             <GrowthChart data={dataset}/>
+            <Metrics data={dataset}/>
             <CallToAction/>
             <Footer/>
         </div>
