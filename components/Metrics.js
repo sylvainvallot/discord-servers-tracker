@@ -162,7 +162,7 @@ export default function Metrics({ data }) {
       <h3 className="font-bold text-3xl text-center">Classement Hebdomadaire</h3>
       <h4 className="italic text-center pb-6">
         Sur la période du {getWeekSpan(datasets[0], weekly)} - Exprimé en
-        nouveau membres
+        nouveaux membres
       </h4>
       <div className="md:grid grid-cols-2 gap-4">
         <div className="">
