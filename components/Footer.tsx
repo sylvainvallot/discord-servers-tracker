@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import Memoji from '../public/images/dev_memoji.png'
 
 export default function Footer() {
 
@@ -9,7 +10,7 @@ export default function Footer() {
                 <Link href="https://github.com/sylvainvallot">Made by @sylvainvallot</Link>
                 <Image
                     className="mb-4"
-                    src="/images/dev_memoji.png"
+                    src={Memoji}
                     width={100}
                     height={100}
                     alt="Coding Memoji"
