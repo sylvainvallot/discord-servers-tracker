@@ -1,17 +1,17 @@
 import {
-    Chart as ChartJS,
     CategoryScale,
+    Chart as ChartJS,
+    Colors,
+    Legend,
+    LineElement,
     LinearScale,
     PointElement,
-    LineElement,
+    TimeScale,
     Title,
     Tooltip,
-    Legend,
-    TimeScale,
-    Colors,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
 import "chartjs-adapter-moment";
+import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
     CategoryScale,
@@ -41,23 +41,23 @@ export default function GrowthChart({ data }) {
         }
 
         datasets.push({
-            label: entry,
-            data: data,
             cubicInterpolationMode: 'monotone',
+            data: data,
+            label: entry,
         })
     }
     
     const options = {
         scales: {
             x: {
-                type: 'time',
                 time: {
-                    unit: 'day',
-                    tooltipFormat: 'DD MMM YYYY',
                     displayFormats: {
                       day: 'DD MMM YYYY',
                     },
-                }
+                    tooltipFormat: 'DD MMM YYYY',
+                    unit: 'day',
+                },
+                type: 'time'
             },
             y: {
                 // beginAtZero: true,
@@ -69,5 +69,5 @@ export default function GrowthChart({ data }) {
         datasets: datasets,
     }
 
-    return <Line options={options} data={graphData} />
+    return <Line data={graphData} options={options} />
 };

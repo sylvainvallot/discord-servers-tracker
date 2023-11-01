@@ -1,11 +1,12 @@
-import GrowthChart from '../components/GrowthChart';
 import Image from 'next/image';
-import clientPromise from "../lib/mongodb";
-import Footer from '../components/Footer';
-import CallToAction from '../components/CallToAction';
-import Metrics from '../components/Metrics';
 
-export default function Servers({ servers, dataset, members }) {
+import CallToAction from '../components/CallToAction';
+import Footer from '../components/Footer';
+import GrowthChart from '../components/GrowthChart';
+import Metrics from '../components/Metrics';
+import clientPromise from "../lib/mongodb";
+
+export default function Servers({ dataset, members, servers }) {
     return (
         <div className="pb-12">
             <h1 className="pt-12 bg-gradient-to-br from-black to-stone-700 bg-clip-text text-transparent text-center font-display font-bold drop-shadow-sm text-7xl">
@@ -55,7 +56,7 @@ export async function getServerSideProps() {
             datasetObject[key] = value;
         })
         return {
-            props: { servers: JSON.parse(JSON.stringify(serverList)), dataset: JSON.stringify(datasetObject), members: totalMembers},
+            props: { dataset: JSON.stringify(datasetObject), members: totalMembers, servers: JSON.parse(JSON.stringify(serverList))},
         };
 
     } catch (e) {
