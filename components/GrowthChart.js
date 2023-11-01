@@ -60,7 +60,7 @@ export default function GrowthChart({ data }) {
                 }
             },
             y: {
-                beginAtZero: true,
+                // beginAtZero: true,
             },
         },
     }
