@@ -2,7 +2,7 @@
 
 ![Badge de Licence](https://img.shields.io/badge/license-MIT-green)
 
-Discord Servers Tracker is a simple Next.js application designed to track the size of Discord servers over time.
+Discord Servers Tracker is a simple Next.js application designed to track the size of mutliple Discord servers over time.
 
 ## Features
 
