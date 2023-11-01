@@ -159,8 +159,8 @@ export default function Metrics({ data }) {
 
   return (
     <div className="container p-12">
-      <h3 className="font-bold text-3xl">Classement Hebdomadaire</h3>
-      <h4 className="italic">
+      <h3 className="font-bold text-3xl text-center">Classement Hebdomadaire</h3>
+      <h4 className="italic text-center pb-6">
         Sur la période du {getWeekSpan(datasets[0], weekly)} - Exprimé en
         nouveau membres
       </h4>
