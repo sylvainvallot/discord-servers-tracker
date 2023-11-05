@@ -1,8 +1,10 @@
 export default function Metrics({ data }) {
   const weekly = 7;
+  const monthly = 30;
   const serverData = JSON.parse(data);
   let datasets = [];
-  let ranking = [];
+  let rankingWeek = [];
+  let rankingMonthly = [];
 
   for (const entry in serverData) {
     let data = [];
@@ -21,16 +23,26 @@ export default function Metrics({ data }) {
   }
 
   datasets.map((entry) => {
-    ranking.push({
+    rankingWeek.push({
       label: entry.label,
-      metric: getWeekMemberMetric(entry, weekly),
+      metric: getMemberMetric(entry, weekly),
     });
+    rankingMonthly.push({
+      label: entry.label,
+      metric: getMemberMetric(entry, monthly),
+    })
   });
 
-  function getWeekMemberMetric(entry, timeSpan) {
+  function getMemberMetric(entry, timeSpan) {
+    let dayCount;
+    if(entry.data.length < timeSpan){
+      dayCount = entry.data.length;
+    } else {
+      dayCount = timeSpan
+    }
     const lastEntry = entry.data[entry.data.length - 1];
-    const prevEntry = entry.data[entry.data.length - timeSpan];
-    const weekly = entry.data.slice(entry.data.length - timeSpan, entry.data.length - 1)
+    const prevEntry = entry.data[entry.data.length - dayCount];
+    const weekly = entry.data.slice(entry.data.length - dayCount, entry.data.length - 1)
     const start = weekly[0].y;
     let memberWeekMetric = 0
     weekly.map((e, i) => {
@@ -41,9 +53,15 @@ export default function Metrics({ data }) {
     return memberWeekMetric;
   }
 
-  function getWeekSpan(entry, timeSpan) {
+  function getTimeSpan(entry, timeSpan) {
+    let dayCount;
+    if(entry.data.length < timeSpan){
+      dayCount = entry.data.length;
+    } else {
+      dayCount = timeSpan
+    }
     const lastEntry = entry.data[entry.data.length - 1];
-    const prevEntry = entry.data[entry.data.length - timeSpan];
+    const prevEntry = entry.data[entry.data.length - dayCount];
     const options = { day: "numeric", month: "numeric", year: "numeric" };
 
     return `${new Date(prevEntry.x).toLocaleDateString(
@@ -158,35 +176,66 @@ export default function Metrics({ data }) {
       </div>
     );
   }
-  ranking.sort((a, b) => b.metric - a.metric);
+  rankingWeek.sort((a, b) => b.metric - a.metric);
 
-  ranking.forEach((element, index) => {
+  rankingWeek.forEach((element, index) => {
+    element.rank = index + 1;
+  });
+
+  rankingMonthly.sort((a, b) => b.metric - a.metric);
+
+  rankingMonthly.forEach((element, index) => {
     element.rank = index + 1;
   });
 
   return (
-    <div className="container p-12">
-      <h3 className="font-bold text-3xl text-center">Classement Hebdomadaire</h3>
+    <div className="container p-12 space-y-8">
+    <div className="">
+      <h3 className="font-bold text-3xl text-center">Performance Hebdomadaire</h3>
       <h4 className="italic text-center pb-6">
-        Sur la période du {getWeekSpan(datasets[0], weekly)} - Exprimé en
+        Sur la période du {getTimeSpan(datasets[0], weekly)} - Exprimé en
         nouveaux membres
       </h4>
       <div className="md:grid grid-cols-2 gap-4">
         <div className="">
-          {ranking.slice(0, 6).map((entry) => {
+          {rankingWeek.slice(0, 6).map((entry) => {
             return (
               <MemberMetric data={entry} key={entry.rank} rank={entry.rank} />
             );
           })}
         </div>
         <div className="">
-          {ranking.slice(6).map((entry) => {
+          {rankingWeek.slice(6).map((entry) => {
             return (
               <MemberMetric data={entry} key={entry.rank} rank={entry.rank} />
             );
           })}
         </div>
       </div>
+    </div>
+    <div className="">
+      <h3 className="font-bold text-3xl text-center">Performance Mensuelle</h3>
+      <h4 className="italic text-center pb-6">
+        Sur la période du {getTimeSpan(datasets[0], monthly)} - Exprimé en
+        nouveaux membres
+      </h4>
+      <div className="md:grid grid-cols-2 gap-4">
+        <div className="">
+          {rankingMonthly.slice(0, 6).map((entry) => {
+            return (
+              <MemberMetric data={entry} key={entry.rank} rank={entry.rank} />
+            );
+          })}
+        </div>
+        <div className="">
+          {rankingMonthly.slice(6).map((entry) => {
+            return (
+              <MemberMetric data={entry} key={entry.rank} rank={entry.rank} />
+            );
+          })}
+        </div>
+      </div>
+    </div>
     </div>
   );
 }
