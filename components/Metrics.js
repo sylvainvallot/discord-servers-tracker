@@ -30,7 +30,14 @@ export default function Metrics({ data }) {
   function getWeekMemberMetric(entry, timeSpan) {
     const lastEntry = entry.data[entry.data.length - 1];
     const prevEntry = entry.data[entry.data.length - timeSpan];
-    const memberWeekMetric = lastEntry.y - prevEntry.y;
+    const weekly = entry.data.slice(entry.data.length - timeSpan, entry.data.length - 1)
+    const start = weekly[0].y;
+    let memberWeekMetric = 0
+    weekly.map((e, i) => {
+      if(i > 0){
+        memberWeekMetric = memberWeekMetric + e.y - weekly[i-1].y;
+      }
+    })    
     return memberWeekMetric;
   }
 
